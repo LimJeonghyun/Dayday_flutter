@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.grey[200],
       ),
-      home: isLogin ? const Home() : const Intro(),
+      home: const Intro(),
+      // home: isLogin ? const Home() : const Intro(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dayday_flutter/src/controller/user_controller.dart';
+import 'package:dayday_flutter/src/screen/auth/intro.dart';
 import 'package:dayday_flutter/src/screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class _RegisterState extends State<Register> {
       bool result = await userController.register(email, name, password);
 
       if (result) {
-        Get.offAll(() => const Home());
+        Get.offAll(() => const Intro());
       }
     }
   }
