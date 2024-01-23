@@ -1,6 +1,5 @@
 import 'package:dayday_flutter/src/screen/feed/create.dart';
 import 'package:flutter/material.dart';
-import 'package:dayday_flutter/src/screen/feed/index.dart';
 import 'package:dayday_flutter/src/widget/feed_list_item.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -40,20 +39,6 @@ class Home extends StatelessWidget {
         ],
       ),
       body: const FeedIndex(),
-      floatingActionButton: InkWell(
-        onTap: () {
-          Get.to(() => FeedCreate());
-        },
-        child: Container(
-          width: 56.0,
-          height: 56.0,
-          decoration: const ShapeDecoration(
-            shape: StadiumBorder(),
-            color: Color(0xffD4A7FB),
-          ),
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
-      ),
     );
   }
 }

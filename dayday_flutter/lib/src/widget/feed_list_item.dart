@@ -1,4 +1,5 @@
 import 'package:dayday_flutter/src/controller/feed_controller.dart';
+import 'package:dayday_flutter/src/screen/feed/create.dart';
 import 'package:dayday_flutter/src/screen/feed/index.dart';
 import 'package:dayday_flutter/src/widget/feed_list_item.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,26 @@ class FeedIndex extends StatefulWidget {
 }
 
 class _FeedIndexState extends State<FeedIndex> {
+  bool _visibility = true;
+
+  void _show() {
+    setState(() {
+      _visibility = true;
+    });
+  }
+
+  void _hide() {
+    setState(() {
+      _visibility = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    feedController.feedIndex();
+  }
+
   DateTime selectedDay = DateTime(
     DateTime.now().year,
     DateTime.now().month,
@@ -50,6 +71,20 @@ class _FeedIndexState extends State<FeedIndex> {
           ),
           todayTextStyle:
               TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+      ),
+      floatingActionButton: InkWell(
+        onTap: () {
+          Get.to(() => const FeedCreate());
+        },
+        child: Container(
+          width: 56.0,
+          height: 56.0,
+          decoration: const ShapeDecoration(
+            shape: StadiumBorder(),
+            color: Color(0xffD4A7FB),
+          ),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
