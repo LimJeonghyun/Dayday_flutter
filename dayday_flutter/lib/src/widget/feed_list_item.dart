@@ -58,6 +58,7 @@ class _FeedIndexState extends State<FeedIndex> {
           });
         },
         selectedDayPredicate: (DateTime day) {
+          _visibility = !isSameDay(selectedDay, day);
           return isSameDay(selectedDay, day);
         },
         headerStyle: const HeaderStyle(
@@ -73,18 +74,21 @@ class _FeedIndexState extends State<FeedIndex> {
               TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
-      floatingActionButton: InkWell(
-        onTap: () {
-          Get.to(() => const FeedCreate());
-        },
-        child: Container(
-          width: 56.0,
-          height: 56.0,
-          decoration: const ShapeDecoration(
-            shape: StadiumBorder(),
-            color: Color(0xffD4A7FB),
+      floatingActionButton: Visibility(
+        visible: _visibility,
+        child: InkWell(
+          onTap: () {
+            Get.to(() => const FeedCreate());
+          },
+          child: Container(
+            width: 56.0,
+            height: 56.0,
+            decoration: const ShapeDecoration(
+              shape: StadiumBorder(),
+              color: Color(0xffD4A7FB),
+            ),
+            child: const Icon(Icons.add, color: Colors.white),
           ),
-          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
