@@ -14,9 +14,7 @@ class FeedModel {
   }
 
   void updateWith(Map<String, dynamic> newValues) {
-    void updateWith(Map<String, dynamic> newValues) {
-      title = newValues['title'] ?? title;
-      content = newValues['content'] ?? content;
-    }
+    title = newValues['title'] ?? title;
+    content = newValues['content'] ?? content;
   }
 }

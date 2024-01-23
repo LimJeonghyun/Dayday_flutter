@@ -8,8 +8,8 @@ final feedConnect = Get.put(FeedConnect());
 class FeedController extends GetxController {
   List<FeedModel> list = [];
 
-  feedIndex({int page = 1}) async {
-    List jsonData = await feedConnect.getList(page);
+  feedIndex(String date, {int page = 1}) async {
+    List jsonData = await feedConnect.getList(date, page);
     if (page == 1) {
       list.clear();
     }
@@ -21,7 +21,7 @@ class FeedController extends GetxController {
   Future<bool> feedCreate(String title, String content) async {
     try {
       await feedConnect.storeItem(title, content);
-      await feedIndex();
+      // await feedIndex();
       return true;
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
@@ -71,7 +71,7 @@ class FeedController extends GetxController {
             .updateWith({'title': data['title'], 'content': data['content']});
         update(); // UI 업데이트
       }
-      await feedIndex();
+      // await feedIndex();
       return true;
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(

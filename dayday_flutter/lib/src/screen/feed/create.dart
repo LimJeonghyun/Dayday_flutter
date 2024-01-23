@@ -14,7 +14,6 @@ class _FeedCreateState extends State<FeedCreate> {
   final feedController = Get.put(FeedController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
   void _submitForm() async {
@@ -39,6 +38,7 @@ class _FeedCreateState extends State<FeedCreate> {
     return Scaffold(
       appBar: AppBar(title: const Text('오늘의 일기 쓰기')),
       body: Form(
+        key: _formKey,
         child: ListView(
           children: [
             // Column(

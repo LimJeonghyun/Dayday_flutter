@@ -4,9 +4,9 @@ import 'package:get_storage/get_storage.dart';
 final GetStorage _storage = GetStorage();
 
 class FeedConnect extends GetConnect {
-  getList(int page) async {
+  getList(String date, int page) async {
     Response response = await get(
-      '/api/feed',
+      '/api/feed/$date',
       query: {'page': page.toString()},
       headers: {'token': await getToken},
     );
@@ -14,7 +14,7 @@ class FeedConnect extends GetConnect {
 
     // print(response.bodyString);
     Map<String, dynamic> body = response.body;
-
+    print(body);
     if (body['result'] == 'fail') {
       throw Exception(body['message']);
     }
@@ -47,11 +47,12 @@ class FeedConnect extends GetConnect {
 
   showItem(int id) async {
     Response response = await get(
-      '/api/feed/$id',
+      '/api/feed/show/$id',
       headers: {'token': await getToken},
     );
     if (response.statusCode == null) throw Exception('통신 에러');
     Map<String, dynamic> body = response.body;
+    print(body);
     if (body['result'] == 'fail') {
       throw Exception(body['message']);
     }

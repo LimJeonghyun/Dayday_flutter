@@ -15,7 +15,6 @@ class _FeedEditState extends State<FeedEdit> {
   int? fileId;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
   var inputDecoration = const InputDecoration(border: OutlineInputBorder());
@@ -59,7 +58,7 @@ class _FeedEditState extends State<FeedEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('내 물건 팔기')),
+      appBar: AppBar(title: const Text('일기 수정하기')),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -67,6 +66,7 @@ class _FeedEditState extends State<FeedEdit> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 15),
                 Text('제목', style: labelTextStyle),
                 TextFormField(
                     controller: _titleController, decoration: inputDecoration),
@@ -75,29 +75,20 @@ class _FeedEditState extends State<FeedEdit> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('가격', style: labelTextStyle),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: inputDecoration,
-                  controller: _priceController,
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+                const SizedBox(height: 30),
                 Text('내용', style: labelTextStyle),
                 TextFormField(
                   maxLines: 5,
                   decoration: inputDecoration,
                   controller: _contentController,
                 ),
+                const SizedBox(height: 20),
               ],
             ),
             ElevatedButton(
               onPressed: _submitForm,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xffFF7E36),
+                backgroundColor: const Color(0xffD4A7FB),
               ),
               child: const Text(
                 '작성 완료',

@@ -1,7 +1,6 @@
 import 'package:dayday_flutter/src/controller/feed_controller.dart';
 import 'package:dayday_flutter/src/screen/feed/create.dart';
 import 'package:dayday_flutter/src/screen/feed/index.dart';
-import 'package:dayday_flutter/src/widget/feed_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -41,7 +40,7 @@ class _FeedIndexState extends State<FeedIndex> {
   @override
   void initState() {
     super.initState();
-    feedController.feedIndex();
+    feedController.feedIndex(date);
   }
 
   DateTime selectedDay = DateTime(
@@ -51,6 +50,8 @@ class _FeedIndexState extends State<FeedIndex> {
   );
 
   DateTime focusedDay = DateTime.now();
+
+  String date = DateTime.now().toString();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,9 @@ class _FeedIndexState extends State<FeedIndex> {
             onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
               setState(() {
                 this.selectedDay = selectedDay;
+                // print(focusedDay.toString());
+                date = selectedDay.toString();
+                feedController.feedIndex(date);
                 _visibility = isSameDay(this.selectedDay, this.focusedDay);
               });
             },
@@ -83,23 +87,16 @@ class _FeedIndexState extends State<FeedIndex> {
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
-          // GetBuilder<FeedController>(
-          //   builder: (controller) {
-          //     ListView.builder(
-          //       padding: const EdgeInsets.all(10),
-          //       itemCount: controller.list.length,
-          //       itemBuilder: (context, index) {
-          //         return FeedListItem(controller.list[index]);
-          //       },
-          //     );
-          //   },
-          // ),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(10),
-              itemCount: ,
-              itemBuilder: (context, index) {
-                return const FeedListItem();
+            child: GetBuilder<FeedController>(
+              builder: (controller) {
+                return ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: controller.list.length,
+                  itemBuilder: (context, index) {
+                    return FeedListItem(controller.list[index]);
+                  },
+                );
               },
             ),
           )
