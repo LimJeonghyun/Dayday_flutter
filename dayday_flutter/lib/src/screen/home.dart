@@ -1,6 +1,8 @@
+import 'package:dayday_flutter/src/screen/feed/create.dart';
 import 'package:flutter/material.dart';
 import 'package:dayday_flutter/src/screen/feed/index.dart';
 import 'package:dayday_flutter/src/widget/feed_list_item.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatelessWidget {
@@ -13,45 +15,45 @@ class Home extends StatelessWidget {
     return strToday;
   }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contest) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xffD4A7FB),
-          title: const Text(
-            'DayDay',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xffD4A7FB),
+        title: const Text(
+          'DayDay',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-          centerTitle: false,
-          actions: <Widget>[
-            Container(
-                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                child: Text(
-                  getToday(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                )),
-          ],
         ),
-        body: FeedIndex()
-        // const TabBarView(
-        //   children: [
-        //     FeedIndex(),
-        //   ],
-        // ),
-        // floatingActionButton: Container(
-        //   width: 56.0,
-        //   height: 56.0,
-        //   decoration: const ShapeDecoration(
-        //     shape: StadiumBorder(),
-        //     color: Color(0xFFFF6f0f),
-        //   ),
-        //   child: const Icon(Icons.add, color: Colors.white),
-        // ),
-        );
+        centerTitle: false,
+        actions: <Widget>[
+          Container(
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Text(
+                getToday(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )),
+        ],
+      ),
+      body: const FeedIndex(),
+      floatingActionButton: InkWell(
+        onTap: () {
+          Get.to(() => FeedCreate());
+        },
+        child: Container(
+          width: 56.0,
+          height: 56.0,
+          decoration: const ShapeDecoration(
+            shape: StadiumBorder(),
+            color: Color(0xffD4A7FB),
+          ),
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
+      ),
+    );
   }
 }
