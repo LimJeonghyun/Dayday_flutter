@@ -18,16 +18,24 @@ class FeedIndex extends StatefulWidget {
 class _FeedIndexState extends State<FeedIndex> {
   bool _visibility = true;
 
-  void _show() {
-    setState(() {
-      _visibility = true;
-    });
-  }
-
-  void _hide() {
-    setState(() {
-      _visibility = false;
-    });
+  Widget? showButton() {
+    if (_visibility) {
+      return InkWell(
+          onTap: () {
+            Get.to(() => const FeedCreate());
+          },
+          child: Container(
+            width: 56.0,
+            height: 56.0,
+            decoration: const ShapeDecoration(
+              shape: StadiumBorder(),
+              color: Color(0xffD4A7FB),
+            ),
+            child: const Icon(Icons.add, color: Colors.white),
+          ));
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -47,50 +55,57 @@ class _FeedIndexState extends State<FeedIndex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TableCalendar(
-        focusedDay: focusedDay,
-        firstDay: DateTime(2020),
-        lastDay: DateTime(2024, 1, 31),
-        onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
-          setState(() {
-            this.selectedDay = selectedDay;
-            this.focusedDay = focusedDay;
-          });
-        },
-        selectedDayPredicate: (DateTime day) {
-          _visibility = !isSameDay(selectedDay, day);
-          return isSameDay(selectedDay, day);
-        },
-        headerStyle: const HeaderStyle(
-          formatButtonVisible: false,
-          titleCentered: true,
-        ),
-        calendarStyle: const CalendarStyle(
-          todayDecoration: BoxDecoration(
-            color: Color(0xffD4A7FB),
-            shape: BoxShape.circle,
-          ),
-          todayTextStyle:
-              TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-      ),
-      floatingActionButton: Visibility(
-        visible: _visibility,
-        child: InkWell(
-          onTap: () {
-            Get.to(() => const FeedCreate());
-          },
-          child: Container(
-            width: 56.0,
-            height: 56.0,
-            decoration: const ShapeDecoration(
-              shape: StadiumBorder(),
-              color: Color(0xffD4A7FB),
+      body: Column(
+        children: [
+          TableCalendar(
+            focusedDay: focusedDay,
+            firstDay: DateTime(2020),
+            lastDay: DateTime(2024, 1, 31),
+            onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+              setState(() {
+                this.selectedDay = selectedDay;
+                _visibility = isSameDay(this.selectedDay, this.focusedDay);
+              });
+            },
+            selectedDayPredicate: (DateTime day) {
+              return isSameDay(selectedDay, day);
+            },
+            headerStyle: const HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
             ),
-            child: const Icon(Icons.add, color: Colors.white),
+            calendarStyle: const CalendarStyle(
+              todayDecoration: BoxDecoration(
+                color: Color(0xffD4A7FB),
+                shape: BoxShape.circle,
+              ),
+              todayTextStyle:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            ),
           ),
-        ),
+          // GetBuilder<FeedController>(
+          //   builder: (controller) {
+          //     ListView.builder(
+          //       padding: const EdgeInsets.all(10),
+          //       itemCount: controller.list.length,
+          //       itemBuilder: (context, index) {
+          //         return FeedListItem(controller.list[index]);
+          //       },
+          //     );
+          //   },
+          // ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(10),
+              itemCount: ,
+              itemBuilder: (context, index) {
+                return const FeedListItem();
+              },
+            ),
+          )
+        ],
       ),
+      floatingActionButton: showButton(),
     );
   }
 }
